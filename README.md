@@ -10,7 +10,7 @@ Script written using Python and Selenium that automatically extracts the content
 * Install virtual environment (if not already installed): `pip3 install virtualenv` or `pip install virtualenv`
 * Create virtual environment: `python3 -m venv env` or `python -m venv env`
 * Enable virtual environment: `source env/bin/activate`
-* Install required libraries: `pip install -r requirements.txt` or `pip3 install -r requirements.txt`
+* Install required libraries: `pip3 install -r requirements.txt` or `pip install -r requirements.txt`
 * Run program: `python3 extracter.py` or `python extracter.py`
 * Follow the instructions on the terminal to successfully scrape the contents of the entire course into a text file
 * Contents will be written to `course.txt` file
