@@ -69,26 +69,23 @@ def extractLessonLinks(driver):
 
 def myProgressBar(n):
     pbar = ProgressBar()
-    for i in pbar(range(n)):
+    for _ in pbar(range(n)):
         time.sleep(1)
 
 def main():
-    print('Program started. Please wait...')
-    print('')
     if os.path.exists('course.txt') == True:
         os.remove("course.txt")
     if os.path.exists('links.txt') == True:
         os.remove("links.txt")
-    myProgressBar(3)
-    print('')
     driver = startChrome()
+    system('clear')
+    print("Please log in using your account and then press enter to continue.")
     print('')
     goToEducativeMainPage(driver)
-    input("Please log in using your account and then press enter to continue.")
+    input("")
+    print('Validating if you are logged in. Please wait...')
     print('')
-    print('Processing. Please wait...')
-    print('')
-    myProgressBar(8)
+    myProgressBar(15)
     print('')
     acceptedURLs = ["https://www.educative.io/learn", "https://www.educative.io/explore", "https://www.educative.io/learning-plans", "https://www.educative.io/projects", "https://www.educative.io/paths", "https://www.educative.io/assessments", "https://www.educative.io/onboarding/dashboard", "https://www.educative.io/onboarding/plans", "https://www.educative.io/onboarding/drafts", "https://www.educative.io/onboarding/modules"]
     if driver.current_url not in acceptedURLs:
@@ -129,13 +126,13 @@ def main():
                 else:
                     print('URL does not seem to be from the lesson of an Educative course. Please enter again.')
                     print('')
-            print('')
             linksExtracted = False
             try:
-                driver.get(firstURL)
-                myProgressBar(5)
-                print('')
+                system('clear')
                 print('Extracting course lesson links. Please wait...')
+                print('')
+                driver.get(firstURL)
+                myProgressBar(8)
                 print('')
                 extractLessonLinks(driver)
                 linksExtracted = True
@@ -223,10 +220,11 @@ def main():
             print('')
             linksExtracted = False
             try:
-                driver.get(firstURL)
-                myProgressBar(5)
-                print('')
+                system('clear')
                 print('Checking order of both URLs. Checking if second URL comes after the first one or not.')
+                print('')
+                driver.get(firstURL)
+                myProgressBar(8)
                 print('')
                 extractLessonLinks(driver)
                 linksExtracted = True
