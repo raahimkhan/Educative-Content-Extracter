@@ -11,6 +11,7 @@ import re
 
 def startChrome():
     options = webdriver.ChromeOptions()
+    options.add_argument('--blink-settings=imagesEnabled=false')
     options.add_argument("--start-maximized")
     options.add_argument('--log-level=3')
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
