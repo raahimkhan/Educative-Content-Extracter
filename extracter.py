@@ -85,10 +85,10 @@ def main():
     input("")
     print('Validating if you are logged in. Please wait...')
     print('')
+    driver.get("https://www.educative.io/learn")
     myProgressBar(15)
     print('')
-    acceptedURLs = ["https://www.educative.io/learn", "https://www.educative.io/explore", "https://www.educative.io/learning-plans", "https://www.educative.io/projects", "https://www.educative.io/paths", "https://www.educative.io/assessments", "https://www.educative.io/onboarding/dashboard", "https://www.educative.io/onboarding/plans", "https://www.educative.io/onboarding/drafts", "https://www.educative.io/onboarding/modules", "https://www.educative.io/onboarding/assigned-plans", "https://www.educative.io/teach", "https://www.educative.io/create-answer", "https://www.educative.io/paths-dashboard", "https://www.educative.io/assessments-dashboard", "https://www.educative.io/learning-plans-dashboard/questionnaire", "https://www.educative.io/learning-plans-dashboard/modules"]
-    if driver.current_url not in acceptedURLs:
+    if driver.current_url not in "https://www.educative.io/learn":
         system('clear')
         print("We detected you are not logged in yet! Please login and then try again.")
         driver.quit()
