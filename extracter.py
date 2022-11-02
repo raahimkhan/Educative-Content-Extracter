@@ -112,7 +112,7 @@ def main():
                     break
         if int(choice) == 1:
             system('clear')
-            print("Please enter URL of any lesson of the course you want to scrape. Make sure the URL is of the **PUBLISHED** version of the course and not the page editor.")
+            print("Please enter URL of any lesson of the course you want to scrape.")
             print('')
             while True:
                 firstURL = input("Enter URL here: ")
@@ -192,7 +192,6 @@ def main():
         else:
             system('clear')
             print("Please enter the URL of the lesson from where you want to start content scrapping.")
-            print("Make sure the URL is of the **PUBLISHED** version of the course and not the page editor.")
             print('')
             firstURL = None
             while True:
@@ -228,7 +227,6 @@ def main():
             system('clear')
 
             print("Please enter the URL of the lesson from where you want to stop content scrapping.")
-            print("Make sure the URL is of the **PUBLISHED** version of the course and not the page editor.")
             print('')
             secondURL = None
             while True:
