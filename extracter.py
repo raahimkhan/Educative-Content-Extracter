@@ -91,7 +91,7 @@ def main():
     print('')
     if driver.current_url not in "https://www.educative.io/learn":
         system('clear')
-        print("We detected you are not logged in yet! Please login and then try again.")
+        print("We detected you are not logged in yet! Please aborted.")
         driver.quit()
     else:
         system('clear')
@@ -113,13 +113,29 @@ def main():
         if int(choice) == 1:
             system('clear')
             print("Please enter URL of any lesson of the course you want to scrape. Make sure the URL is of the **PUBLISHED** version of the course and not the page editor.")
-            print("For example: https://www.educative.io/courses/react-beginner-to-advanced/JY1xJkJgrqg")
             print('')
             while True:
                 firstURL = input("Enter URL here: ")
-                regex = re.compile('^https://www.educative.io/courses/')
-                if re.match(regex, firstURL):
+                regex1 = re.compile('^https://www.educative.io/courses/')
+                regex2 = re.compile('^https://www.educative.io/collection/page/')
+                regex3 = re.compile('^https://www.educative.io/pageeditor/')
+                flag1 = bool(re.match(regex1, firstURL))
+                flag2 = bool(re.match(regex2, firstURL))
+                flag3 = bool(re.match(regex3, firstURL))
+                if flag1 == True:
                     if len(firstURL.split("//")[1].split("/")) != 4:
+                        print('URL does not seem to be from the lesson of an Educative course. Please enter again.')
+                        print('')
+                    else:
+                        break
+                elif flag2 == True:
+                    if len(firstURL.split("//")[1].split("/")) != 6:
+                        print('URL does not seem to be from the lesson of an Educative course. Please enter again.')
+                        print('')
+                    else:
+                        break
+                elif flag3 == True:
+                    if len(firstURL.split("//")[1].split("/")) != 5:
                         print('URL does not seem to be from the lesson of an Educative course. Please enter again.')
                         print('')
                     else:
@@ -130,7 +146,7 @@ def main():
             linksExtracted = False
             try:
                 system('clear')
-                print('Extracting course lesson links. Please wait...')
+                print('Fetching course lesson links. Please wait...')
                 print('')
                 driver.get(firstURL)
                 myProgressBar(8)
@@ -139,13 +155,13 @@ def main():
                 linksExtracted = True
             except:
                 system('clear')
-                print('Some error occured while fetching course lesson links. Please try later. Content scrapping failed.')
+                print('Some error occured while fetching course lesson links. Please try later. Please aborted.')
                 driver.quit()
             if linksExtracted == True:
                 resp = getLinksFromFile()
                 if resp[0] == False:
                     system('clear')
-                    print('Links.txt file is empty. Please make sure there are lesson links inside the file. Content scrapping failed.')
+                    print('Links extraction failed. Please aborted.')
                     driver.quit()
                 else:
                     links = resp[1]
@@ -171,20 +187,36 @@ def main():
                         driver.quit()
                     except:
                         system('clear')
-                        print('Sorry! Something went wrong. Please try again later.')
+                        print('Sorry! Something went wrong. Please try again later. Please aborted.')
                         driver.quit()
         else:
             system('clear')
             print("Please enter the URL of the lesson from where you want to start content scrapping.")
             print("Make sure the URL is of the **PUBLISHED** version of the course and not the page editor.")
-            print("For example: https://www.educative.io/courses/react-beginner-to-advanced/JY1xJkJgrqg")
             print('')
             firstURL = None
             while True:
                 firstURL = input("Enter URL here: ")
-                regex = re.compile('^https://www.educative.io/courses/')
-                if re.match(regex, firstURL):
+                regex1 = re.compile('^https://www.educative.io/courses/')
+                regex2 = re.compile('^https://www.educative.io/collection/page/')
+                regex3 = re.compile('^https://www.educative.io/pageeditor/')
+                flag1 = bool(re.match(regex1, firstURL))
+                flag2 = bool(re.match(regex2, firstURL))
+                flag3 = bool(re.match(regex3, firstURL))
+                if flag1 == True:
                     if len(firstURL.split("//")[1].split("/")) != 4:
+                        print('URL does not seem to be from the lesson of an Educative course. Please enter again.')
+                        print('')
+                    else:
+                        break
+                elif flag2 == True:
+                    if len(firstURL.split("//")[1].split("/")) != 6:
+                        print('URL does not seem to be from the lesson of an Educative course. Please enter again.')
+                        print('')
+                    else:
+                        break
+                elif flag3 == True:
+                    if len(firstURL.split("//")[1].split("/")) != 5:
                         print('URL does not seem to be from the lesson of an Educative course. Please enter again.')
                         print('')
                     else:
@@ -196,20 +228,43 @@ def main():
             system('clear')
 
             print("Please enter the URL of the lesson from where you want to stop content scrapping.")
-            print("Note that this lesson will be included in content scrapping")
             print("Make sure the URL is of the **PUBLISHED** version of the course and not the page editor.")
-            print("For example: https://www.educative.io/courses/react-beginner-to-advanced/JPD8EKAxAqg")
             print('')
             secondURL = None
             while True:
                 secondURL = input("Enter URL here: ")
-                regex = re.compile('^https://www.educative.io/courses/')
-                if re.match(regex, secondURL):
+                regex1 = re.compile('^https://www.educative.io/courses/')
+                regex2 = re.compile('^https://www.educative.io/collection/page/')
+                regex3 = re.compile('^https://www.educative.io/pageeditor/')
+                flag1 = bool(re.match(regex1, secondURL))
+                flag2 = bool(re.match(regex2, secondURL))
+                flag3 = bool(re.match(regex3, secondURL))
+                if flag1 == True:
                     if len(secondURL.split("//")[1].split("/")) != 4:
                         print('URL does not seem to be from the lesson of an Educative course. Please enter again.')
                         print('')
                     else:
                         if secondURL.split("//")[1].split("/")[2] != firstURL.split("//")[1].split("/")[2]:
+                            print("URL does not seem to be from the same course as the URL entered previously. Please enter again.")
+                            print('')
+                        else:
+                            break
+                elif flag2 == True:
+                    if len(secondURL.split("//")[1].split("/")) != 6:
+                        print('URL does not seem to be from the lesson of an Educative course. Please enter again.')
+                        print('')
+                    else:
+                        if (secondURL.split("//")[1].split("/")[3] != firstURL.split("//")[1].split("/")[3]) and (secondURL.split("//")[1].split("/")[4] != firstURL.split("//")[1].split("/")[4]):
+                            print("URL does not seem to be from the same course as the URL entered previously. Please enter again.")
+                            print('')
+                        else:
+                            break
+                elif flag3 == True:
+                    if len(secondURL.split("//")[1].split("/")) != 5:
+                        print('URL does not seem to be from the lesson of an Educative course. Please enter again.')
+                        print('')
+                    else:
+                        if (secondURL.split("//")[1].split("/")[2] != firstURL.split("//")[1].split("/")[2]) and (secondURL.split("//")[1].split("/")[3] != firstURL.split("//")[1].split("/")[3]):
                             print("URL does not seem to be from the same course as the URL entered previously. Please enter again.")
                             print('')
                         else:
@@ -222,7 +277,7 @@ def main():
             linksExtracted = False
             try:
                 system('clear')
-                print('Checking order of both URLs. Checking if second URL comes after the first one or not.')
+                print('Checking order of both URLs. Checking if second URL comes after the first URL or not.')
                 print('')
                 driver.get(firstURL)
                 myProgressBar(8)
@@ -231,14 +286,15 @@ def main():
                 linksExtracted = True
             except:
                 system('clear')
-                print('Some error occured while fetching course lesson links. Please try later. Content scrapping failed.')
+                print('Some error occured while fetching course lesson links. Please try later. Please aborted.')
                 driver.quit()
 
             if linksExtracted == True:
                 resp = getLinksFromFile()
                 if resp[0] == False:
                     system('clear')
-                    print('Links.txt file is empty. Please make sure there are lesson links inside the file. Content scrapping failed.')
+                    print('Links extraction failed. Please aborted.')
+                    os.remove("links.txt")
                     driver.quit()
                 else:
                     links = resp[1]
@@ -254,7 +310,7 @@ def main():
                     if pos2 < pos1:
                         system('clear')
                         print('Order of both URLs entered is not correct. Make sure the second URL is of the lesson that comes **AFTER** the first URL.')
-                        print('Try again later')
+                        print('Try again later. Program aborted.')
                         driver.quit()
                     else:
                         count = 0
@@ -279,7 +335,7 @@ def main():
                             driver.quit()
                         except:
                             system('clear')
-                            print('Sorry! Something went wrong. Please try again later.')
+                            print('Sorry! Something went wrong. Please try again later. Please aborted.')
                             driver.quit()
 
 main()
