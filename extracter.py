@@ -91,7 +91,7 @@ def main():
     print('')
     if driver.current_url not in "https://www.educative.io/learn":
         system('clear')
-        print("We detected you are not logged in yet! Please aborted.")
+        print("We detected you are not logged in yet! Program aborted.")
         driver.quit()
     else:
         system('clear')
@@ -155,13 +155,13 @@ def main():
                 linksExtracted = True
             except:
                 system('clear')
-                print('Some error occured while fetching course lesson links. Please try later. Please aborted.')
+                print('Some error occured while fetching course lesson links. Please try later. Program aborted.')
                 driver.quit()
             if linksExtracted == True:
                 resp = getLinksFromFile()
                 if resp[0] == False:
                     system('clear')
-                    print('Links extraction failed. Please aborted.')
+                    print('Links extraction failed. Program aborted.')
                     driver.quit()
                 else:
                     links = resp[1]
@@ -187,7 +187,7 @@ def main():
                         driver.quit()
                     except:
                         system('clear')
-                        print('Sorry! Something went wrong. Please try again later. Please aborted.')
+                        print('Sorry! Something went wrong. Please try again later. Program aborted.')
                         driver.quit()
         else:
             system('clear')
@@ -284,14 +284,14 @@ def main():
                 linksExtracted = True
             except:
                 system('clear')
-                print('Some error occured while fetching course lesson links. Please try later. Please aborted.')
+                print('Some error occured while fetching course lesson links. Please try later. Program aborted.')
                 driver.quit()
 
             if linksExtracted == True:
                 resp = getLinksFromFile()
                 if resp[0] == False:
                     system('clear')
-                    print('Links extraction failed. Please aborted.')
+                    print('Links extraction failed. Program aborted.')
                     os.remove("links.txt")
                     driver.quit()
                 else:
@@ -333,7 +333,7 @@ def main():
                             driver.quit()
                         except:
                             system('clear')
-                            print('Sorry! Something went wrong. Please try again later. Please aborted.')
+                            print('Sorry! Something went wrong. Please try again later. Program aborted.')
                             driver.quit()
 
 main()
