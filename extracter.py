@@ -28,6 +28,10 @@ def getPTags(driver):
     for content in contents:
         if content.text in exclude:
             continue
+        elif content.get_attribute("class") == "katex-block ":
+            continue
+        elif content.get_attribute("class") == "katex-block":
+            continue
         else:
             file_object.write(content.text + "\n")
     file_object.close()
@@ -73,11 +77,34 @@ def myProgressBar(n):
     for _ in pbar(range(n)):
         time.sleep(1)
 
+def parseFile():
+    with open("course.txt", 'r') as inFile, open('temp.txt', 'w') as outFile:
+        for line in inFile:
+            if line.strip():
+                outFile.write(line)
+    if os.path.exists('course.txt') == True:
+        os.remove("course.txt")
+    firstDone = False
+    with open('temp.txt','r') as inFile, open('course.txt','w') as outFile:
+        for line in inFile:
+            line = line.strip()
+            if line[0:12] == "Lesson Title":
+                if firstDone == False:
+                    outFile.write(line + "\n")
+                    firstDone = True
+                else:
+                    outFile.write("\n")
+                    outFile.write(line + "\n")
+            else:
+                outFile.write(line + "\n")
+
 def main():
     if os.path.exists('course.txt') == True:
         os.remove("course.txt")
     if os.path.exists('links.txt') == True:
         os.remove("links.txt")
+    if os.path.exists('temp.txt') == True:
+        os.remove("temp.txt")
     driver = startChrome()
     system('clear')
     print("Please log in using your account and then press enter to continue.")
@@ -182,6 +209,7 @@ def main():
                             print('')
                             count = count + 1
                         system('clear')
+                        parseFile()
                         print('All done. Content scrapped from a total of ', count, ' lessons.')
                         print('Open the course.txt file to see the results.')
                         driver.quit()
@@ -328,6 +356,7 @@ def main():
                                 print('')
                                 count = count + 1
                             system('clear')
+                            parseFile()
                             print('All done. Content scrapped from a total of ', count, ' lessons.')
                             print('Open the course.txt file to see the results.')
                             driver.quit()
