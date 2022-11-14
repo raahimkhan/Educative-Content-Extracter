@@ -1,8 +1,9 @@
 # Educative-Content-Extracter
 Script written using Python and Selenium that automatically extracts the content of lessons of a course on Educative platform into a text file.
 
-## Important pointer
+## Important pointers
 * When you run the script, you might receive an error that chromedriver is not trusted. Please follow the following link in order to fix this error: https://timonweb.com/misc/fixing-error-chromedriver-cannot-be-opened-because-the-developer-cannot-be-verified-unable-to-launch-the-chrome-browser-on-mac-os/
+* Execution time and speed of the script depends on your internet connection!
 
 ## Running the script
 **Note:** Replace `pip3` with `pip` in the commands below if the commands do not work with `pip3`
@@ -27,5 +28,6 @@ Follow the instructions on the terminal to successfully scrape the contents of t
 
 ## Limitations
 * Content of code blocks, code widgets, SPA, etc are not extracted
+* Latex will not be extracted
 * Content of projects, mini-projects, assessments, and quizzes are not extracted
 * Works only for courses as of now. Does not work for paths, learning plans, skill assessments, etc
