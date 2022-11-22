@@ -7,6 +7,7 @@ import time
 import os
 import os.path
 from os import system
+from bs4 import BeautifulSoup
 import re
 
 def startChrome():
@@ -21,6 +22,21 @@ def startChrome():
 def goToEducativeMainPage(driver):
     driver.get("https://www.educative.io/")
 
+# def getPTags(driver):
+#     contents = driver.find_elements(By.TAG_NAME, "p")
+#     file_object = open('course.txt', 'a')
+#     exclude = ["COURSE ASSESSMENT", "MINI PROJECT", "COURSE PROJECT"]
+#     for content in contents:
+#         if content.text in exclude:
+#             continue
+#         elif content.get_attribute("class") == "katex-block ":
+#             continue
+#         elif content.get_attribute("class") == "katex-block":
+#             continue
+#         else:
+#             file_object.write(content.text + "\n")
+#     file_object.close()
+
 def getPTags(driver):
     contents = driver.find_elements(By.TAG_NAME, "p")
     file_object = open('course.txt', 'a')
@@ -33,7 +49,21 @@ def getPTags(driver):
         elif content.get_attribute("class") == "katex-block":
             continue
         else:
-            file_object.write(content.text + "\n")
+            temp = content.get_attribute('innerHTML')
+            temp1 = BeautifulSoup(temp)
+            unwanted = temp1.find_all('annotation')
+            unwanted2 = temp1.find_all('span',{'class': 'katex-html'})
+            unwanted3 = temp1.find_all('span',{'class': 'mspace'})
+            unwanted4 = temp1.find_all('mtext')
+            for i in unwanted:
+                i.extract()
+            for i in unwanted2:
+                i.extract()
+            for i in unwanted3:
+                i.extract()
+            for i in unwanted4:
+                i.extract()
+            file_object.write(temp1.text + "\n")
     file_object.close()
 
 def getH1Tags(driver):
@@ -43,11 +73,33 @@ def getH1Tags(driver):
         file_object.write("Lesson Title: " + content.text + "\n")
     file_object.close()
 
+# def getliTags(driver):
+#     contents = driver.find_elements(By.TAG_NAME, "li")
+#     file_object = open('course.txt', 'a')
+#     for content in contents:
+#         file_object.write(content.text + "\n")
+#     file_object.write("\n")
+#     file_object.close()
+
 def getliTags(driver):
     contents = driver.find_elements(By.TAG_NAME, "li")
     file_object = open('course.txt', 'a')
     for content in contents:
-        file_object.write(content.text + "\n")
+        temp = content.get_attribute('innerHTML')
+        temp1 = BeautifulSoup(temp)
+        unwanted = temp1.find_all('annotation')
+        unwanted2 = temp1.find_all('span',{'class': 'katex-html'})
+        unwanted3 = temp1.find_all('span',{'class': 'mspace'})
+        unwanted4 = temp1.find_all('mtext')
+        for i in unwanted:
+            i.extract()
+        for i in unwanted2:
+            i.extract()
+        for i in unwanted3:
+            i.extract()
+        for i in unwanted4:
+            i.extract()
+        file_object.write(temp1.text + "\n")
     file_object.write("\n")
     file_object.close()
 
@@ -201,7 +253,7 @@ def main():
                         print('')
                         for link in links:
                             driver.get(link)
-                            myProgressBar(5)
+                            myProgressBar(6)
                             getH1Tags(driver)
                             getPTags(driver)
                             getliTags(driver)
@@ -348,7 +400,7 @@ def main():
                             print('')
                             for link in links:
                                 driver.get(link)
-                                myProgressBar(5)
+                                myProgressBar(6)
                                 getH1Tags(driver)
                                 getPTags(driver)
                                 getliTags(driver)
