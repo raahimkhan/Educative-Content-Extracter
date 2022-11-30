@@ -9,6 +9,8 @@ import os.path
 from os import system
 from bs4 import BeautifulSoup
 import re
+import argparse
+import sys
 
 def startChrome():
     options = webdriver.ChromeOptions()
@@ -150,6 +152,46 @@ def parseFile():
             else:
                 outFile.write(line + "\n")
 
+def myParser():
+    parser = argparse.ArgumentParser(
+        prog = 'Course Content Extractor',
+        description = 'Extracts course content from Educative platform',
+        epilog = 'Happy Extraction!'
+    )
+    parser.add_argument(
+        '--validationTimer', 
+        type=int, 
+        required=False,
+        default=15,
+        help='Number of seconds to wait for login validation. If you have a slow internet connection, increase the number of seconds. Default is 15 seconds.'
+    )
+    parser.add_argument(
+        '--linksFetchingTimer', 
+        type=int, 
+        required=False,
+        default=8,
+        help='Number of seconds to wait for links fetching. If you have a slow internet connection, increase the number of seconds. Default is 8 seconds.'
+    )
+    parser.add_argument(
+        '--lessonsExtractionTimer', 
+        type=int, 
+        required=False,
+        default=6,
+        help='Number of seconds to wait for individual lesson extraction. If you have a slow internet connection, increase the number of seconds. Default is 6 seconds.'
+    )
+    args = None
+    try:
+        args = parser.parse_args()
+    except SystemExit as e:
+        if e.code == 2:
+            print("")
+            print('Execute python3 extracter.py --help on the terminal for details')
+            print("")
+            sys.exit(0)
+        elif e.code == 0:
+            sys.exit(0)
+    return args
+
 def main():
     if os.path.exists('course.txt') == True:
         os.remove("course.txt")
@@ -157,6 +199,10 @@ def main():
         os.remove("links.txt")
     if os.path.exists('temp.txt') == True:
         os.remove("temp.txt")
+    args = myParser()
+    validationTimer = args.validationTimer
+    linksFetchingTimer = args.linksFetchingTimer
+    lessonsExtractionTimer = args.lessonsExtractionTimer
     driver = startChrome()
     system('clear')
     print("Please log in using your account and then press enter to continue.")
@@ -166,7 +212,7 @@ def main():
     print('Validating if you are logged in. Please wait...')
     print('')
     driver.get("https://www.educative.io/learn")
-    myProgressBar(15)
+    myProgressBar(validationTimer)
     print('')
     if driver.current_url not in "https://www.educative.io/learn":
         system('clear')
@@ -228,7 +274,7 @@ def main():
                 print('Fetching course lesson links. Please wait...')
                 print('')
                 driver.get(firstURL)
-                myProgressBar(8)
+                myProgressBar(linksFetchingTimer)
                 print('')
                 extractLessonLinks(driver)
                 linksExtracted = True
@@ -253,7 +299,7 @@ def main():
                         print('')
                         for link in links:
                             driver.get(link)
-                            myProgressBar(6)
+                            myProgressBar(lessonsExtractionTimer)
                             getH1Tags(driver)
                             getPTags(driver)
                             getliTags(driver)
@@ -358,7 +404,7 @@ def main():
                 print('Checking order of both URLs. Checking if second URL comes after the first URL or not.')
                 print('')
                 driver.get(firstURL)
-                myProgressBar(8)
+                myProgressBar(linksFetchingTimer)
                 print('')
                 extractLessonLinks(driver)
                 linksExtracted = True
@@ -400,7 +446,7 @@ def main():
                             print('')
                             for link in links:
                                 driver.get(link)
-                                myProgressBar(6)
+                                myProgressBar(lessonsExtractionTimer)
                                 getH1Tags(driver)
                                 getPTags(driver)
                                 getliTags(driver)
