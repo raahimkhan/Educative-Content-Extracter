@@ -3,7 +3,9 @@ Script written using Python and Selenium that automatically extracts the content
 
 ## Important pointers
 * When you run the script, you might receive an error that chromedriver is not trusted. Please follow the following link in order to fix this error: https://timonweb.com/misc/fixing-error-chromedriver-cannot-be-opened-because-the-developer-cannot-be-verified-unable-to-launch-the-chrome-browser-on-mac-os/
-* Execution time and speed of the script depends on your internet connection!
+* Execution time and speed of the script depends on your internet connection.
+  * Run `python3 extracter.py --help` to see available command-line arguments that can be modified to control the waiting times of the script.
+  * For instance, to increase login validation timer, execute the script as `python3 extracter.py --validationTimer 20`. Execute the command mentioned above to see more such modifications.
 
 ## Running the script
 **Note:** Replace `pip3` with `pip` in the commands below if the commands do not work with `pip3`
