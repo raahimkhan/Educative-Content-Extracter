@@ -52,7 +52,7 @@ def getPTags(driver):
             continue
         else:
             temp = content.get_attribute('innerHTML')
-            temp1 = BeautifulSoup(temp)
+            temp1 = BeautifulSoup(temp, features="html.parser")
             unwanted = temp1.find_all('annotation')
             unwanted2 = temp1.find_all('span',{'class': 'katex-html'})
             unwanted3 = temp1.find_all('span',{'class': 'mspace'})
@@ -88,7 +88,7 @@ def getliTags(driver):
     file_object = open('course.txt', 'a')
     for content in contents:
         temp = content.get_attribute('innerHTML')
-        temp1 = BeautifulSoup(temp)
+        temp1 = BeautifulSoup(temp, features="html.parser")
         unwanted = temp1.find_all('annotation')
         unwanted2 = temp1.find_all('span',{'class': 'katex-html'})
         unwanted3 = temp1.find_all('span',{'class': 'mspace'})
@@ -310,6 +310,8 @@ def main():
                         parseFile()
                         print('All done. Content scrapped from a total of ', count, ' lessons.')
                         print('Open the course.txt file to see the results.')
+                        if os.path.exists('temp.txt') == True:
+                            os.remove("temp.txt")
                         driver.quit()
                     except:
                         system('clear')
@@ -457,6 +459,8 @@ def main():
                             parseFile()
                             print('All done. Content scrapped from a total of ', count, ' lessons.')
                             print('Open the course.txt file to see the results.')
+                            if os.path.exists('temp.txt') == True:
+                                os.remove("temp.txt")
                             driver.quit()
                         except:
                             system('clear')
