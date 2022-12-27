@@ -176,7 +176,7 @@ def myParser():
         '--lessonsExtractionTimer', 
         type=int, 
         required=False,
-        default=6,
+        default=8,
         help='Number of seconds to wait for individual lesson extraction. If you have a slow internet connection, increase the number of seconds. Default is 6 seconds.'
     )
     args = None
@@ -214,7 +214,7 @@ def main():
     driver.get("https://www.educative.io/learn")
     myProgressBar(validationTimer)
     print('')
-    if driver.current_url not in "https://www.educative.io/learn":
+    if driver.current_url not in ["https://www.educative.io/learn2/home", "https://www.educative.io/learn"]:
         system('clear')
         print("We detected you are not logged in yet! Program aborted.")
         driver.quit()
