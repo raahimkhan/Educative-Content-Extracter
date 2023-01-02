@@ -15,6 +15,7 @@ Execute the following commands to run the content extraction script successfully
 3) **Make the `script.sh` file executable:** `chmod u+x script.sh`
 4) **Execute `script.sh` file to setup and install dependencies:** `source script.sh`
 5) **Run program:** `python3 extracter.py`
+
 Now follow the instructions on the terminal to successfully scrape the contents of the course into a text file. Contents will be written to `course.txt` file
 
 ## Format
