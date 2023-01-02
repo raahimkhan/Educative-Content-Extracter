@@ -8,18 +8,14 @@ Script written using Python and Selenium that automatically extracts the content
   * For instance, to increase login validation timer, execute the script as `python3 extracter.py --validationTimer 20`. This will increase the login validation timer to 20 seconds. Execute `python3 extracter.py --help` to see more such modifications.
 
 ## Running the script
-**Note:** Replace `pip3` with `pip` in the commands below if the commands do not work with `pip3`
+**Note:** Replace `pip3` with `pip` inside the `script.sh` file if your machine does not recognize `pip3`.
+Execute the following commands to run the content extraction script successfully:
 1) **Clone the repository:** `git clone https://github.com/raahimkhan/Educative-Content-Extracter.git`
 2) **Navigate to the `Educative-Content-Extracter` directory:** `cd Educative-Content-Extracter`
-3) **Install virtual environment (if not already installed):** `pip3 install virtualenv`
-4) **Create virtual environment:** `python3 -m venv env`
-5) **Enable virtual environment:** `source env/bin/activate`
-6) **Upgrade `pip`:** `"env/bin/python3" -m pip install --upgrade pip`
-7) **Install `wheel`:** `pip3 install wheel`
-8) **Install required libraries and packages:** `pip3 install -r requirements.txt`
-9) **Run program:** `python3 extracter.py`
-
-Follow the instructions on the terminal to successfully scrape the contents of the course into a text file. Contents will be written to `course.txt` file
+3) **Make the `script.sh` file executable:** `chmod u+x script.sh`
+4) **Execute `script.sh` file to setup and install dependencies:** `source script.sh`
+5) **Run program:** `python3 extracter.py`
+Now follow the instructions on the terminal to successfully scrape the contents of the course into a text file. Contents will be written to `course.txt` file
 
 ## Format
 * Lesson title (h1 heading extracted into text file)
